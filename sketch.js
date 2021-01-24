@@ -3,6 +3,7 @@ var dog, dogImage, happyDog, happyDogImage;
 var database;
 var milk, milkImage;
 var foodStock;
+var food;
 
 function preload(){
   dogImage = loadImage("images/dogImg.png");
@@ -21,6 +22,8 @@ function setup() {
   milk = createSprite(200,300,50,50);
   milk.addImage(milkImage);
   milk.scale = 0.1;
+
+ food = 19;
   
   
 }
@@ -29,18 +32,24 @@ function setup() {
 function draw() {  
 background("green");
 if(keyDown(UP_ARROW)){
-  writeStock(foodS);
+  food = food - 1;
   dog.addImage(happyDogImage); 
   milk.visible = false;
 }else{
   dog.addImage(dogImage);
   milk.visible = true;
 }
+if(food === 0){
+  milk.visible = false;
+}
 foodStock = database.ref('Food');
   foodStock.on("value", readStock);
 
 textSize(20);
 text("Note: Press UP_ARROW Key To Feed Doggo Milk!", 40, 70);
+
+textSize(20);
+text("Food:19", 40, 90);
 
 
   drawSprites();
